@@ -1,0 +1,62 @@
+{% extends "chatbot/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'chatbot/styles.css' %}" />
+
+<div class="container">
+  <h1>Painel de Controle</h1>
+
+  <!-- Filtro de paciente (GET) -->
+  <form method="get" class="toolbar">
+    <label for="patientSelect">Paciente:</label>
+    <select id="patientSelect" name="patient">
+      <option value="" {% if not selected_name %}selected{% endif %}>Selecione…</option>
+      {% for p in patients %}
+        <option value="{{ p.name }}" {% if selected_name == p.name %}selected{% endif %}>{{ p.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Carregar</button>
+  </form>
+
+  <!-- Tabela de respostas -->
+  <table>
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Pergunta</th>
+        <th>Resposta</th>
+        <th>Respondido em</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if selected_name %}
+        {% if rows %}
+          {% for r in rows %}
+            <tr>
+              <td>{{ r.day_number }}</td>
+              <td>{{ r.question }}</td>
+              <td>{{ r.content|default:"—" }}</td>
+              <td>{{ r.answered_on|default:"—" }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="4" class="muted">Sem respostas registradas para {{ selected_name }}.</td></tr>
+        {% endif %}
+      {% else %}
+        <tr><td colspan="4" class="muted">Selecione um paciente acima.</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  <!-- Enviar próxima pergunta (POST) -->
+  {% if selected_name and next_day %}
+  <form method="post" action="{{ send_api_url }}" class="sendbar">
+    {% csrf_token %}
+    <input type="hidden" name="patient_name" value="{{ selected_name }}">
+    <input type="hidden" name="day_number" value="{{ next_day }}">
+    <button type="submit">Enviar próxima pergunta (dia {{ next_day }})</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}
