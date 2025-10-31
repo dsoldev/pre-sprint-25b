@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.utils.timezone import localtime
 from django.urls import reverse
 from django.db.models import Max
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Patients, Answers, Scripts, Questions
 
@@ -78,3 +79,14 @@ def send_question(request):
     )
     # redirecionar de volta ao painel de controle com paciente selecionado
     return redirect(f"{reverse('control_panel')}?patient={patient.name}")
+
+@csrf_exempt
+def webhook(request):
+    from_number = request.POST.get('From', '')  # ex: 'whatsapp:+5511999998888'
+    body = request.POST.get('Body', '').strip()
+
+    # Aqui você processaria a mensagem recebida
+    print(f"Mensagem recebida de {from_number}: {body}")
+
+    # Responder com uma mensagem de confirmação
+    return HttpResponse("OK")

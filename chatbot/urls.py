@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('controlpanel/', views.control_panel, name='control_panel'),
-    path('send_question/', views.send_question, name='send_question')
+    path('send_question/', views.send_question, name='send_question'),
+    path('webhook/', views.webhook, name='webhook'),  # Rota para o webhook do WhatsApp
 ]
