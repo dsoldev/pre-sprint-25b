@@ -62,7 +62,7 @@ async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         print("link error:", e)
 
     if ok:
-        await msg.reply_text("✅ Contato vinculado. Você já pode enviar suas respostas por aqui.")
+        await msg.reply_text("Contato vinculado. Você já pode enviar suas respostas por aqui.")
     else:
         await msg.reply_text("Não encontrei seu número no cadastro. Fale com a equipe.")
 
@@ -73,7 +73,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     chat_id = str(msg.chat.id)
     text = (msg.text or "").strip()
 
-    # reempacota como “payload genérico” e envia para o seu webhook do Django
+    # payload genérico para enviar para o webhook do Django
     generic = {
         "results": [
             {
