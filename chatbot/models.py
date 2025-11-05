@@ -21,6 +21,7 @@ class Patients(models.Model):
     age = models.IntegerField()
     script = models.ForeignKey(Scripts, on_delete=models.CASCADE)
     cellphone = models.CharField(max_length=15)
+    telegram_chat_id = models.CharField(max_length=50, blank=True, null=True)
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
