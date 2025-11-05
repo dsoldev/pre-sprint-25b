@@ -19,7 +19,7 @@ class Scripts(models.Model):
 class Patients(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-    script = models.ForeignKey(Scripts, on_delete=models.CASCADE)
+    script = models.ForeignKey(Scripts, on_delete=models.CASCADE) # https://docs.djangoproject.com/en/5.2/topics/db/examples/many_to_one/
     cellphone = models.CharField(max_length=15)
     telegram_chat_id = models.CharField(max_length=50, blank=True, null=True)
     last_updated = models.DateTimeField(auto_now=True)
