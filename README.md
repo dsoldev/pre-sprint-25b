@@ -21,8 +21,16 @@ TELEGRAM_BOT_TOKEN = ...your-telegram-bot-token...
 ```
 
 ### Instalando Dependências
+Todas as de Django e também:
 ```
-pip install -r requirements.txt
+pip install "python-telegram-bot==20.*"
+pip install requests
+```
+
+### Fazendo Migrações
+```
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 ### Criando Superusuário
@@ -38,10 +46,4 @@ python manage.py runserver
 em outro terminal, execute:
 ```
 python -m chatbot.telegram_poll
-```
-
-### Fazendo Migrações
-```
-python manage.py makemigrations
-python manage.py migrate
 ```

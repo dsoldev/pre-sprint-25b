@@ -16,7 +16,7 @@ def control_panel(request):
     patients = Patients.objects.all().order_by('name')
 
     # Paciente selecionado
-    selected_name = request.GET['patient']
+    selected_name = request.GET.get('patient')
     selected_patient = patients.filter(name=selected_name).first() if selected_name else None
 
     # Linhas da tabela
