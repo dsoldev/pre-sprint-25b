@@ -1,0 +1,4 @@
+Django==5.1.2
+python-dotenv
+requests
+python-telegram-bot==20.3
